@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Projeto Backend Exame Final",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -21,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/Lari30/Backend-Pet-Shop/issues"
   },
-  "homepage": "https://github.com/Lari30/Backend-Pet-Shop#readme"
+  "homepage": "https://github.com/Lari30/Backend-Pet-Shop#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
 }
