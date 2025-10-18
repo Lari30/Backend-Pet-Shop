@@ -1,0 +1,25 @@
+{
+  "name": "backend-pet-shop",
+  "version": "1.0.0",
+  "description": "Projeto Backend Exame Final",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lari30/Backend-Pet-Shop.git"
+  },
+  "keywords": [
+    "Backend",
+    "Node",
+    "Javascript",
+    "Mysql"
+  ],
+  "author": "Larissa Santos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lari30/Backend-Pet-Shop/issues"
+  },
+  "homepage": "https://github.com/Lari30/Backend-Pet-Shop#readme"
+}
