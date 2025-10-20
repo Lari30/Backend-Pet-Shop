@@ -16,7 +16,7 @@ export default class InteressadoDAO {
                 interessado.nomeCompleto,
                 interessado.telefone,
                 interessado.email,
-                interessado.filhote.id
+                interessado.filhote?.id ?? null
             ];
 
             await conexao.execute(sql, parametros);
@@ -77,6 +77,43 @@ export default class InteressadoDAO {
             `;
 
         const [registros] = await conexao.query(sql);
+        await conexao.release();
+
+       let listaInteressado = [];
+
+    for (const registro of registros) {
+        const filhote = new filhote(registro.fi_id, registro.fi_especie, registro.fi_raca)
+        const interessado = new Interessado(
+        registro.inte_cpf,
+        registro.inte_nome_completo,
+        registro.inte_telefone,
+        registro.inte_email,
+        registro.fi_id
+      );
+    
+      listaInteressado.push(interessado);
+    }
+
+    return listaInteressado;
+    }
+
+    async consultarCPF(cpf){
+        cpf = cpf  || '';
+        const conexao = await conectar();
+        const sql = `
+        SELECT * FROM interessado i INNER JOIN filhote f ON i.fi_id = f.fi_id
+            i.inte_cpf,
+            i.inte_nome_completo,
+            i.inte_telefone,
+            i.inte_email,
+            f.fi_especie,
+            f.fi_raca
+            WHERE i.inte_cpf = ?
+            ORDER BY i.inte_nome_completo
+            
+            `;
+
+        const [registros] = await conexao.query(sql, [cpf]);
         await conexao.release();
 
        let listaInteressado = [];

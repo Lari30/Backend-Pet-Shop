@@ -69,7 +69,7 @@ export default class Interessado {
         Nome Completo: ${this.#nomeCompleto} \n
         Telefone: ${this.#telefone} \n
         E-mail: ${this.#email} \n
-        Filhote: ${this.#filhote} \n
+        Filhote ID: ${this.#filhote?.id ?? "Sem Filhote"} \n
         
         `;
 
@@ -104,7 +104,12 @@ export default class Interessado {
 
     async consultar(){
         const interessadoDAO = new InteressadoDAO();
-        return await interessadoDAO.consultar(this);
+        return await interessadoDAO.consultar();
+    }
+
+    async consultarCPF(cpf){
+        const interessadoDAO = new InteressadoDAO();
+        return await interessadoDAO.consultarCPF(cpf);
     }
 
 }

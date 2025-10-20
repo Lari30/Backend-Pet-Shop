@@ -5,11 +5,13 @@ export default class Filhote {
     #id; 
     #especie;
     #raca;
+    #inte_id;
 
-    constructor(id = 0, especie="", raca="") {
+    constructor(id = 0, especie="", raca="", inte_id = null) {
         this.#id = id;
         this.#especie = especie;
         this.#raca = raca;
+        
     }
 
     get id() {
