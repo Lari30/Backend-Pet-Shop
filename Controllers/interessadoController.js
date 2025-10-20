@@ -151,7 +151,7 @@ export default class InteressadoController{
             //a consulta pode ou não especificar um cpf
             //qnd um cpf não for especificado então a consulta retornará todos os interessados
             const cpf = requisicao.params.cpf;
-            const interessado = Interessado();
+            const interessado = new Interessado();
             if (cpf){
                 interessado.consultarCPF(cpf)
                 .then((listaInteressado) => {

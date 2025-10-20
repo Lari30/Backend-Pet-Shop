@@ -9,7 +9,7 @@ export default class Interessado {
     #email;
     #filhote;
 
-    constructor (cpf = "", nomeCompleto = "", telefone = "", email = "", filhote = {}) {
+    constructor (cpf = "", nomeCompleto = "", telefone = "", email = "", filhote = null) {
         this.#cpf = cpf;
         this.#nomeCompleto = nomeCompleto;
         this.#telefone = telefone;
@@ -42,7 +42,7 @@ export default class Interessado {
     }
 
     set telefone(telefone) {
-        this.#telefone
+        this.#telefone = telefone
     }
 
     get email() {
@@ -50,7 +50,7 @@ export default class Interessado {
     }
 
     set email(email) {
-        this.#email
+        this.#email = email
     }
 
     get filhote(){
@@ -58,7 +58,7 @@ export default class Interessado {
     }
 
     set filhote(filhote) {
-        this.#filhote
+        this.#filhote = filhote
     }
 
     //Escolher uma forma estrutura de representar um objeto do tipo Interessados

@@ -28,28 +28,28 @@ export default class InteressadoDAO {
 
         }
     }
-    async alterar(interessado){
-        if (interessado instanceof Interessado){
+    async alterar(interessado) {
+        if (interessado instanceof Interessado) {
             const conexao = await conectar();
             const sql = `
-            UPDATE interessado
-            SET
-                inte_nome_completo = "",
-                inte_telefone = "",
-                inte_email = "",
-            WHERE inte_cpf = ?    
-
-             `;
-             const parametros = [
+                UPDATE interessado
+                SET
+                    inte_nome_completo = ?,
+                    inte_telefone = ?,
+                    inte_email = ?,
+                    fi_id = ?
+                WHERE inte_cpf = ?
+            `;
+            const parametros = [
                 interessado.nomeCompleto,
                 interessado.telefone,
                 interessado.email,
-                interessado.filhote.id,
+                interessado.filhote?.id ?? null, // se não tiver filhote, define como null
                 interessado.cpf
-             ];
+            ];
 
-             await conexao.execute(sql, parametros);
-             await conexao.release();
+            await conexao.execute(sql, parametros);
+            await conexao.release();
         }
     }
     async excluir(interessado){
