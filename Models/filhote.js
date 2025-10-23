@@ -73,5 +73,10 @@ export default class Filhote {
         const filhoteDao = new FilhoteDAO();
         return await filhoteDao.consultar(this)
     }
+
+    async consultarPorId(id) {
+    const dao = new FilhoteDAO();
+    return await dao.consultarPorId(id);
+  }
 }
 

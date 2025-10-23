@@ -11,7 +11,8 @@ export default class InteressadoController{
             const dados = requisicao.body;
             if(dados.cpf && dados.nomeCompleto && dados.telefone && dados.email && dados.filhote){
                 const interessado = new Interessado(dados.cpf, dados.nomeCompleto, dados.telefone, dados.email, dados.filhote );
-                interessado.gravar() 
+                interessado
+                .gravar() 
                 .then(() => {
                     resposta.status(200).json({
                         status: true,
@@ -167,24 +168,17 @@ export default class InteressadoController{
                         mensagem: "Erro ao consultar o interessado: " + erro.message
                     });
                 });
-            }
-            else{
+            } else {
                 interessado.consultar()
                 .then((listaInteressado) => {
-                    if(listaInteressado.length > 0) {
                         resposta.status(200).json({
                         status: true,
-                        mensagem: "Consulta realizada com sucesso",
-                        interessado: listaInteressado
+                        mensagem: listaInteressado.length > 0
+                        ? "Consulta realizada com sucesso"
+                        : "Nenhum interessado encontrado",
+                        interessados: listaInteressado
                         });
-                    }
-                    else{
-                        resposta.status(400).json({
-                            status: false,
-                            mensagem: "Interessado não encontrado"
-                        });
-                    }
-                    
+                                        
                 })
                 .catch((erro) => {
                     resposta.status(500).json({
@@ -201,5 +195,5 @@ export default class InteressadoController{
                 mensagem: "Requisição inválida"
             });
         }
-    };
+    }
 }

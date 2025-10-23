@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/Lari30/Backend-Pet-Shop#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^5.1.0",
     "mysql2": "^3.15.2"
   }

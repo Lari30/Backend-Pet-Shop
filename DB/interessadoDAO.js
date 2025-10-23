@@ -62,33 +62,38 @@ export default class InteressadoDAO {
             await conexao.release();
         }
     }
-    async consultar(interessado){
+    async consultar(){
         const conexao = await conectar();
         const sql = `
-        SELECT * FROM interessado i INNER JOIN filhote f ON i.fi_id = f.fi_id
-            i.inte_cpf,
-            i.inte_nome_completo,
-            i.inte_telefone,
-            i.inte_email,
-            f.fi_especie,
-            f.fi_raca
-            ORDER BY i.inte_nome_completo
-            
-            `;
+        SELECT 
+                i.inte_cpf,
+                i.inte_nome_completo,
+                i.inte_telefone,
+                i.inte_email,
+                f.fi_id,
+                f.fi_especie,
+                f.fi_raca
+            FROM interessado i
+            LEFT JOIN filhote f ON f.fi_id = i.fi_id
+            ORDER BY i.inte_nome_completo;
+        `;
 
         const [registros] = await conexao.query(sql);
         await conexao.release();
 
-       let listaInteressado = [];
+       const listaInteressado = [];
 
     for (const registro of registros) {
-        const filhote = new filhote(registro.fi_id, registro.fi_especie, registro.fi_raca)
+        const objFilhote = registro.fi_id
+        ? new Filhote (registro.fi_id,registro.fi_especie, registro.fi_raca)
+        : null;
+
         const interessado = new Interessado(
         registro.inte_cpf,
         registro.inte_nome_completo,
         registro.inte_telefone,
         registro.inte_email,
-        registro.fi_id
+        objFilhote
       );
     
       listaInteressado.push(interessado);
@@ -101,15 +106,18 @@ export default class InteressadoDAO {
         cpf = cpf  || '';
         const conexao = await conectar();
         const sql = `
-        SELECT * FROM interessado i INNER JOIN filhote f ON i.fi_id = f.fi_id
-            i.inte_cpf,
-            i.inte_nome_completo,
-            i.inte_telefone,
-            i.inte_email,
-            f.fi_especie,
-            f.fi_raca
-            WHERE i.inte_cpf = ?
-            ORDER BY i.inte_nome_completo
+        SELECT 
+        i.inte_cpf,
+        i.inte_nome_completo,
+        i.inte_telefone,
+        i.inte_email,
+        f.fi_id,
+        f.fi_especie,
+        f.fi_raca
+      FROM interessado i
+      LEFT JOIN filhote f ON f.fi_id = i.fi_id
+      WHERE i.inte_cpf = ?
+      ORDER BY i.inte_nome_completo;
             
             `;
 
@@ -119,13 +127,16 @@ export default class InteressadoDAO {
        let listaInteressado = [];
 
     for (const registro of registros) {
-        const filhote = new filhote(registro.fi_id, registro.fi_especie, registro.fi_raca)
+        const objFilhote = registro.fi_id 
+        ? new Filhote(registro.fi_id, registro.fi_especie, registro.fi_raca)
+        : null;
+
         const interessado = new Interessado(
         registro.inte_cpf,
         registro.inte_nome_completo,
         registro.inte_telefone,
         registro.inte_email,
-        registro.fi_id
+        objFilhote
       );
     
       listaInteressado.push(interessado);
